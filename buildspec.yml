@@ -18,5 +18,5 @@ phases:
 
 artifacts:
   files:
-    - source.zip
-  base-directory: lambda
+    - lambda/source.zip
+    - deployspec.yml
