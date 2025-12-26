@@ -6,3 +6,5 @@ ts-out/
 .env
 .env.local
 
+
+lambda/source.zip

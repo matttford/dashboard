@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo "Updating Lambda function: $FUNCTION_NAME"
+      - aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file fileb://source.zip
+      - aws lambda wait function-updated --function-name $FUNCTION_NAME
+      - echo "Lambda updated successfully"
