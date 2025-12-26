@@ -1,0 +1,14 @@
+{
+  "name": "dashboard",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Dashboard serverless web application",
+  "scripts": {
+    "build": "npm run build:lambda && npm run build:frontend"
+  },
+  "workspaces": [
+    "lambda",
+    "frontend"
+  ]
+}
+
