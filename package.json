@@ -4,11 +4,11 @@
   "private": true,
   "description": "Dashboard serverless web application",
   "scripts": {
-    "build": "npm run build:lambda && npm run build:frontend"
+    "build:lambda": "cd lambda && npm run build",
+    "build:frontend": "cd frontend && npm run build"
   },
   "workspaces": [
     "lambda",
     "frontend"
   ]
 }
-
