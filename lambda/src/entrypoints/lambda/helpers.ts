@@ -1,14 +1,22 @@
 import { LambdaFunctionURLEvent } from "aws-lambda";
 
+type Request = {
+  type: string;
+};
+
 const exit = (message = "Unknown Error") => {
   throw new Error(message);
+};
+
+const isDirectInvokeEvent = (event: any): event is Request => {
+  return event?.type !== undefined && typeof event.type === "string";
 };
 
 const isLambdaURLEvent = (event: any): event is LambdaFunctionURLEvent => {
   return event?.body !== undefined && event?.headers !== undefined;
 };
 
-const unwrapLambdaURLEvent = (event: LambdaFunctionURLEvent): unknown => {
+const unwrapLambdaURLEvent = (event: LambdaFunctionURLEvent): Request => {
   const body = event?.body;
   if (!body) {
     return exit("Unable to process LambdaFunctionURLEvent, missing body.");
@@ -21,16 +29,17 @@ const unwrapLambdaURLEvent = (event: LambdaFunctionURLEvent): unknown => {
   }
 };
 
-export const unwrapEvent = (event: unknown): unknown => {
+export const unwrapEvent = (event: unknown): Request => {
   try {
-    if (isLambdaURLEvent(event)) {
-      return unwrapLambdaURLEvent(event);
-    }
-    return exit("Unable to process event, unknown event type.");
+    // prettier-ignore
+    return isDirectInvokeEvent(event)
+      ? event
+      : isLambdaURLEvent(event)
+      ? unwrapLambdaURLEvent(event)
+      : exit("Unable to process event, unknown event type.");
   } catch (error) {
     console.log(JSON.stringify(event, null, 2));
     console.error("ERROR: [Unknown Lambda Event]", error);
     throw error;
   }
 };
-

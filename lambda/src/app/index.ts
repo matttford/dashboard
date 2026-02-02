@@ -1,6 +1,8 @@
 import { getRandomMeme } from "./handlers/getRandomMeme.js";
+import { getHealth } from "./handlers/getHealth.js";
 
 const GetRandomMeme = "GetRandomMeme" as const;
+const GetHealth = "GetHealth" as const;
 
 type Request = {
   type: string;
@@ -8,6 +10,7 @@ type Request = {
 
 const typeRoutes = {
   [GetRandomMeme]: getRandomMeme,
+  [GetHealth]: getHealth,
 } as const;
 
 export const typeRouter = async (request: Request) => {
@@ -17,4 +20,3 @@ export const typeRouter = async (request: Request) => {
   }
   return await handler();
 };
-

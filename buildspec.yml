@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+
+  pre_build:
+    commands:
+      - echo "Installing dependencies..."
+      - cd lambda
+      - npm ci
+
+  build:
+    commands:
+      - echo "Building Lambda function..."
+      - npm run build
+
+artifacts:
+  files:
+    - lambda/source.zip
+    - deployspec.yml

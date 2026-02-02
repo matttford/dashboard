@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getRandomMeme, type GetRandomMemeResponse } from "./api";
 
 const REFRESH_INTERVAL_MS = parseInt(import.meta.env.VITE_REFRESH_INTERVAL_MINUTES) * 60 * 1000;
-console.log("REFRESH_INTERVAL_MS", REFRESH_INTERVAL_MS);
 
 function App() {
   const [meme, setMeme] = useState<GetRandomMemeResponse | null>(null);
@@ -33,14 +32,16 @@ function App() {
   }, []);
 
   return (
-    <div style={{ 
-      display: "flex", 
-      flexDirection: "column", 
-      alignItems: "center", 
-      justifyContent: "center", 
-      minHeight: "100vh",
-      padding: "20px"
-    }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        padding: "20px",
+      }}
+    >
       {/* <h1>Dashboard</h1>
       <p>This is a dashboard that displays a continuous stream of memes from an S3 bucket.</p>
       <p>API URL: {import.meta.env.VITE_API_URL}</p> */}
@@ -51,11 +52,11 @@ function App() {
           <img
             src={meme.url}
             alt="Meme"
-            style={{ 
-              maxWidth: "100%", 
+            style={{
+              maxWidth: "100%",
               height: "auto",
               display: "block",
-              margin: "0 auto"
+              margin: "0 auto",
             }}
             onError={() => setError("Failed to load image")}
           />
@@ -66,4 +67,3 @@ function App() {
 }
 
 export default App;
-
